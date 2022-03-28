@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
+
+<!-- Importando um tamplate de head -->
+<head th:replace="~{template :: headTemplate}"></head>
+
+<body>
+
+	<!-- Template da barra principal -->
+	<div th:replace="~{template :: logo}"></div>
+
+	<div class="container">
+	
+		<!-- Template Jumbotron -->
+		<div th:replace="~{template :: titulo('Novo Pedido')}" ></div>
+		
+		<div class="card mt-3">
+				
+			<form th:object="${requisicaoNovoPedido}" action="/pedido/novo" method="POST" class="card-body" >
+			
+				<div  class="form-group">
+					<label for="urlImagem">Produto</label> 	
+					<input th:field="*{nomeProduto}" th:errorclass="is-invalid" class="form-control" placeholder="Nome do produto" maxlength="1000">
+					<small>Informe qual o nome do produto.</small>
+					
+					<div th:errors="*{nomeProduto}" class="invalid-feedback">   	<!-- Apresentação dos erros do produto -->
+						Obrigatório o preenchimento do campo
+					</div>
+					
+				</div>
+				
+				<div  class="form-group">
+					<label for="urlProduto">URL do Produto</label>
+					<input th:field="*{urlProduto}" th:errorclass="is-invalid" placeholder="URL do produto" class="form-control">
+					<small>Procure no site o produto que você deseja e cole a url da página aqui.</small>
+					
+					<div th:errors="*{urlProduto}" class="invalid-feedback">   	<!-- Apresentação dos erros do produto -->
+						Obrigatório o preenchimento do campo
+					</div>
+					
+				</div>
+				
+				<div class="form-group">
+					<label for="urlImagem">Imagem</label>
+					<input th:field="*{urlImagem}" th:errorclass="is-invalid" class="form-control" placeholder="URL da imagem">
+					<small>Copie a url de uma boa imagem do produto e cole aqui para ajudar a conseguir compradores.</small>
+					
+					<div th:errors="*{urlImagem}" class="invalid-feedback">   	<!-- Apresentação dos erros do produto -->
+						Obrigatório o preenchimento do campo
+					</div>
+				
+				</div>
+				
+				<div class="form-group">
+					<label for="descricao">Imagem</label>
+					<textarea name="descricao" placeholder="Adicione detalhes importantes para ajudar o comprador" class="form-control" ></textarea>
+				</div>
+				
+				<button type="submit" class="btn btn-primary">Cadastrar</button>
+				
+			</form>
+		</div>
+	</div>
+</body>
+</html>

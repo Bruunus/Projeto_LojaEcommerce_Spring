@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Importando um tamplate de head -->
+<head th:replace="~{template :: headTemplate}">
+
+</head>
+
+<body>
+
+	<!-- Template da barra principal -->
+	<div th:replace="~{template :: logo}"></div>
+
+	<div class="container">
+	
+		<!-- Template Jumbotron -->
+		<div th:replace="~{template :: titulo('Login')}" ></div>
+		
+		
+	
+		<div class="card mb-3">		 
+			
+			 <form th:action="@{/login}" method="post" class="card-body">
+				
+				<div  class="form-group">
+					<label for="username">Usuário</label> 	
+					<input name="username" class="form-control" placeholder="Usuário" >
+				</div>
+				
+				<div  class="form-group">
+					<label for="password">Senha</label> 	
+					<input type="password" name="password" class="form-control" placeholder="Senha" >
+				</div>
+				
+				<button type="submit" class="btn btn-primary">Login</button>
+			
+			 </form>
+			 
+			 
+			
+		</div>
+	</div>
+</body>
+</html>
