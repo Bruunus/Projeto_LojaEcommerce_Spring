@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import javax.persistence.*;
 
+ 
+
 
 @Entity
 public class Pedido {
@@ -22,6 +24,8 @@ public class Pedido {
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private User user;
 	
 	public Pedido() {}
 	
