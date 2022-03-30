@@ -30,7 +30,7 @@ public class PedidoController {
 	
 	
 	/**
-	 * 
+	 * @valid - O Spring se conecta com a notação @NotBlank de validação dos atributos para entrada de dados deste parâmetro
 	 * @param request
 	 * @return - O objeto do parâmetro BindingResult informa o resultado da validação dos dados acionando um erro ou não.
 	 */
@@ -43,7 +43,7 @@ public class PedidoController {
 		Pedido pedido = request.toPedido();
 		pedidoRepository.save(pedido);
 		
-		return "redirect:/home";  
+		return "redirect:/home";  // ou     return "forward:/home"; - serve também
 	}
 	
 }
