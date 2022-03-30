@@ -1,5 +1,6 @@
 package br.com.ecommerce.mvc.bigu.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.persistence.PersistenceContext;
@@ -21,26 +22,28 @@ import br.com.ecommerce.mvc.bigu.repository.PedidoRepository;
 @RequestMapping("/home")
 public class HomeController  {
  
-	@Autowired		
+	@Autowired		// notação utilizada para realização de injeção de dependência do spring. Reconhece automaticamente uma injeção
 	private PedidoRepository pedidoRepository;
 	
 	
 	
 	/**
 	 * Método que recebe requisição GET	com prefixo home.
-	 * Estabelece conexão direta com banco dedados executando
-	 * consulta SELECT onde trás todos os dados e armazena
-	 * no objeto pedido. O model na qual trabalha com UI 
-	 * (Interface de Usuário) chama o despachador addAtributte
-	 * informando um nome e passando o objeto que o método 
-	 * retornará para a home para exibir os atributos.
+	 * Estabelece conexão direta com banco de dados executando
+	 * consulta personalizada para carregar a lista de pedidos
+	 * por usuário. Recebe objeto Principal como parâmetro para
+	 * injetar o nome do usuário em que está logado na sessão atual.
+	 * O model na qual trabalha com UI (Interface de Usuário) chama o 
+	 * despachador addAtributte informando um nome e passando o 
+	 * objeto que o método retornará para a home para exibir os dados
+	 * buscados.
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@GetMapping
-	public String home(Model model) {		
-		List<Pedido> pedidos = pedidoRepository.findAll();		// conexão com banco de dados
+	public String home(Model model, Principal principal) {		
+		List<Pedido> pedidos = pedidoRepository.findByUsuario(principal.getName());		// conexão com banco de dados
 		model.addAttribute("pedidos", pedidos);	
 		return "home";
 	}
@@ -68,6 +71,8 @@ public class HomeController  {
 		model.addAttribute("status", status);
 		return "home";
 	}
+	
+	
 	
 	/**
 	 * Tratamento de erro do método 'porStatus' caso ele não consiga atender a requisição.
