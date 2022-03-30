@@ -1,7 +1,5 @@
 package br.com.ecommerce.mvc.bigu.dto;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import br.com.ecommerce.mvc.bigu.model.Pedido;
@@ -9,7 +7,7 @@ import br.com.ecommerce.mvc.bigu.model.StatusPedido;
 
 public class RequisicaoNovoPedido {
 	
-	
+	// notação para validação de campos inputs do formulário - O elemento anotado não deve ser nulo e deve conter pelo menos um caractere sem espaço em branco. Aceita CharSequence.
 	@NotBlank(message = "Este campo é obrigatório o seu preenchimento")	// Notblank.requisicaoNovoPedido.nomeProduto=
 	private String nomeProduto;
 	
