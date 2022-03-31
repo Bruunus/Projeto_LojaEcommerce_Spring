@@ -22,7 +22,7 @@ import br.com.ecommerce.mvc.bigu.repository.PedidoRepository;
 @RequestMapping("/home")
 public class HomeController  {
  
-	@Autowired		// notação utilizada para realização de injeção de dependência do spring. Reconhece automaticamente uma injeção
+	@Autowired		
 	private PedidoRepository pedidoRepository;
 	
 	
