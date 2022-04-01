@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Importando um tamplate de head -->
+<head th:replace="~{template :: headTemplate}">
+
+</head>
+
+<body>
+
+	<!-- Template da barra principal -->
+	<div th:replace="~{template :: logo}"></div>
+
+	<div class="container">
+	
+		<!-- Template Jumbotron -->
+		<div th:replace="~{template :: titulo('Meus Pedidos')}" ></div>
+		
+		<nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-2">
+			<div class="navbar-nav">
+				<!-- Feito comparação com status do banco de dados do método 'porStatus' para renderizar o foco na
+				medida em que a página for carregada -->
+				<a th:classappend="${status} == null ? 'active'" th:href="@{/usuario/pedido}" class="nav-link">Todos</a>
+				<a th:classappend="${status} == 'aguardando' ? 'active'" th:href="@{/usuario/pedido/aguardando}" class="nav-link">Aguardando</a>
+				<a th:classappend="${status} == 'aprovado' ? 'active'" th:href="@{/usuario/pedido/aprovado}" class="nav-link">Aprovado</a>
+				<a th:classappend="${status} == 'entregue' ? 'active'" th:href="@{/usuario/pedido/entregue}" class="nav-link">Entregue</a>				
+			</div>
+			<a href="/pedido/formulario">
+				<button class="btn btn-outline-secondary my-2 my-sm-0"
+					type="submit">
+					Novo
+				</button>
+			</a>
+		</nav>
+	
+		<div class="card mb-3" th:each="pedido : ${pedidos}">		<!-- Fazendo foreach com thymeleaf da lista que está no controller -->
+			
+			<!-- switch que informa o status da compra de acordo com o Enum status da classe pedido, possui três valores -->
+			<th:block th:switch="${pedido.status.name()}">
+				<div th:case="AGUARDANDO" class="card-header alert-warning">Produto:<span th:text="${pedido.nomeProduto}">Nome do Produto</span></div>		<!-- Trazendo o valor definido na action -->
+				<div th:case="APROVADO" class="card-header alert-success">Produto:<span th:text="${pedido.nomeProduto}">Nome do Produto</span></div>
+				<div th:case="ENTREGUE" class="card-header alert-dark">Produto:<span th:text="${pedido.nomeProduto}">Nome do Produto</span></div>			
+			</th:block>	
+			
+				<div class="card-body">
+						<div class="row">
+						<div class="col-12 col-lg-8 mb-3">			
+							
+							<div class="row">
+								<div class="col-lg-4">Valor: <span th:if="${pedido.valorNegociado} != null"  th:text="${'R$ ' + #numbers.formatDecimal(pedido.valorNegociado,3,'POINT',2,'COMMA')}">200,99</span></div>
+								<div class="col-lg-8">Data da entrega: <span th:text="${#temporals.format(pedido.dataDaEntrega, 'dd/MM/yyyy') }">10/02/2020</span></div>
+							</div>
+							
+							<div>Produto</div>
+							<div><input class="form-control" th:value="${pedido.urlProduto}" value="url do produto:" /></div>
+							
+							<div>Descrição:</div>
+							<div>
+								<textarea class="form-control" th:text="${pedido.descricao}">Descrição do pedido</textarea>
+							</div>
+						</div>
+						
+						<div class="col-12 col-lg-4 img-fluid">	
+							<div>
+								<img class="img-thumbnail" th:src="${pedido.urlImagem}" />
+							</div>
+						</div>	
+									
+					</div>
+				</div>
+			
+		</div>
+	</div>
+</body>
+</html>
