@@ -30,12 +30,12 @@ public class HomeController  {
 	/**
 	 * Método que recebe requisição GET	com prefixo home.
 	 * Estabelece conexão direta com banco de dados executando
-	 * consulta personalizada para carregar a lista de pedidos
-	 * por usuário. Recebe objeto Principal como parâmetro para
-	 * injetar o nome do usuário em que está logado na sessão atual.
-	 * O model na qual trabalha com UI (Interface de Usuário) chama o 
-	 * despachador addAtributte informando um nome e passando o 
-	 * objeto que o método retornará para a home para exibir os dados
+	 * consulta personalizada para carregar a lista de todos
+	 * os pedidos. injetar o nome do usuário em que está 
+	 * logado na sessão atual. O model na qual trabalha 
+	 * com UI (Interface de Usuário) chama o despachador 
+	 * addAtributte informando um nome e passando o objeto 
+	 * que o método retornará para a home para exibir os dados
 	 * buscados.
 	 * 
 	 * @param model
@@ -43,7 +43,7 @@ public class HomeController  {
 	 */
 	@GetMapping
 	public String home(Model model, Principal principal) {		
-		List<Pedido> pedidos = pedidoRepository.findByUsuario(principal.getName());		// conexão com banco de dados
+		List<Pedido> pedidos = pedidoRepository.findAll();		// conexão com banco de dados
 		model.addAttribute("pedidos", pedidos);	
 		return "home";
 	}
