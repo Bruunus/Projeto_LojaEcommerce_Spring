@@ -27,5 +27,15 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 	@Query("SELECT p FROM Pedido p JOIN p.user u WHERE u.username = :username")
 	List<Pedido> findByUsuario(@Param("username")String username);
 	
+	
+	/**
+	 * Método que realiza busca no banco de dado para trazer os produtos que estão 
+	 * amarrados ao status que o status esteja vinculados ao usuário. 
+	 * @param status - Status atual do produto no banco de dados.
+	 * @param username - Usuario cadastrado no banco de dados
+	 * @return
+	 */
+	@Query("SELECT p FROM Pedido p JOIN p.user u WHERE u.username = :username AND p.status = :status")
+	List<Pedido> findByStatusEUsuario(@Param("status")StatusPedido status, @Param("username")String username);
 
 }
