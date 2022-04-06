@@ -21,21 +21,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	
 	/**
-	 * Método spring de configuração de autorizção de usuário
+	 * Método spring de configuração de autorizção de usuário.
+	 * Invocado o método formLogin para configurar o caminho da
+	 * requisição, e, caso a autenticação estiver de acordo é 
+	 * redirecionado para a página home através do metodo defaultSuccessUrl.
+	 * Configurado o encerramento de sessão através do método logout fazendo 
+	 * o redirecionamento configurado na view e desabilitado o modo cfrf (cross-site request forgery)  
+	 * do Spring para evitar erro de redirecionamento pelo mecanismo interno do Spring.
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		
 			.authorizeRequests()
-				.anyRequest().authenticated()
+			.antMatchers("/home/**")	
+				.permitAll()
+			
+			.anyRequest().authenticated()
 			.and()
 				.formLogin(form -> form
 		            .loginPage("/login")
 		            .defaultSuccessUrl("/usuario/pedido", true)
 		            .permitAll()
 		        )
-			.logout(logout -> logout.logoutUrl("/logout"))
+			.logout(logout -> logout.logoutUrl("/logout")
+					.logoutSuccessUrl("/home"))
 			.csrf().disable();
 			
 	}
