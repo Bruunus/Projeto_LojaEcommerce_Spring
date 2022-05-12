@@ -24,10 +24,10 @@
 
 
 <!-- Template barra principal -->
-<div th:fragment="logo" class="logo-container mb-3 d-flex justify-content-between">
-	<div class="row logo-container d-flex justify-content-between">
-		<span class="logo ml-2">mudi</span>
-		<span class="mt-2">
+<div th:fragment="logo" class="">
+	<div class="logo-container d-flex justify-content-between">
+		<span class="logo ml-3">bigu</span>
+		<span class="mt-2 mr-3">
 			<a class="text-light" sec:authorize="!isAuthenticated()" href="/login">login</a>
 			<a onclick="document.querySelector('#formLogin').submit(); alert('Deslogando...')" href="#" class="text-light" sec:authorize="isAuthenticated()" >logout</a>
 			<form id="formLogin" th:action="@{/logout}" method="post"></form>
@@ -38,6 +38,7 @@
 			<nav class="nav">
 			  <a class="nav-link" th:href="@{/home}">Home</a>
 			  <a class="nav-link" th:href="@{/usuario/pedido}">Meus Pedidos</a>
+			  <a class="nav-link" th:href="@{/oferta}">Solicitar Pedidos</a>
 			</nav>
 		</div>
 	</div>
